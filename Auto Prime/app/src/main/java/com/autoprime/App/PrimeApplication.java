@@ -1,5 +1,4 @@
-package com.AutoPrime.Prime;
-
+package com.autoprime.App;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
