@@ -1,5 +1,4 @@
-package com.AutoPrime.Prime;
-
+package com.autoprime.App;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,5 +8,4 @@ public class PrimeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PrimeApplication.class, args);
 	}
-
 }
