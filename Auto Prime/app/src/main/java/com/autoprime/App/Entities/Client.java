@@ -1,17 +1,17 @@
     package com.autoprime.App.Entities;
 
     import java.time.LocalDate;
-    import java.util.ArrayList;
-    import java.util.List;
-    import java.time.LocalDate;
-    import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-    import jakarta.persistence.*;
-    import jakarta.validation.constraints.DecimalMin;
+
+    import jakarta.persistence.Entity;
+    import jakarta.persistence.GeneratedValue;
+    import jakarta.persistence.GenerationType;
+    import jakarta.persistence.Id;
+    import jakarta.persistence.PrePersist;
+    import jakarta.persistence.Table;
     import jakarta.validation.constraints.Email;
     import jakarta.validation.constraints.NotBlank;
     import jakarta.validation.constraints.NotNull;
     import jakarta.validation.constraints.PastOrPresent;
-    import jakarta.validation.constraints.Positive;
     import jakarta.validation.constraints.Size;
     import lombok.Getter;
     import lombok.Setter;
@@ -44,6 +44,10 @@
         private String email;
 
         @ToString.Include
+        @NotBlank(message = "Precisa de uma senha")
+        private String senha;
+        
+        @ToString.Include
         @NotBlank(message = "Precisa de um telefone")
         @Size(max = 15, message = "O telefone é muito longo")
         private String telefone;
@@ -63,6 +67,9 @@
         @ToString.Include
         @NotBlank(message = "Precisa de um estado")
         private String estado;
+
+        @ToString.Include
+        private Boolean admin = false;
 
         @ToString.Include
         @PastOrPresent

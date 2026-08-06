@@ -1,10 +1,11 @@
 package com.autoprime.App.DataLoaders;
 
-import com.autoprime.App.Entities.Car;
-import com.autoprime.App.Services.CarService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.autoprime.App.Entities.Car;
+import com.autoprime.App.Services.CarService;
 
 @Configuration
 public class CarDataLoader {
@@ -21,11 +22,11 @@ public class CarDataLoader {
             carService.save(c1);
 
             Car c2 = new Car();
-            c2.setAno(2025);
+            c2.setAno(2022);
             c2.setChassi("sasd");
-            c2.setMarca("Wolkswagen");
-            c2.setModelo("Mariano");
-            c2.setPreco(69.4f);
+            c2.setMarca("Toyota");
+            c2.setModelo("Portal");
+            c2.setPreco(27.4f);
             carService.save(c2);
         };
     }
