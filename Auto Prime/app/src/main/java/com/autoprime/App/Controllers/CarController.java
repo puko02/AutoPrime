@@ -30,33 +30,33 @@ public class CarController {
     private CarService carService;
 
     //@PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody @Valid Car car) {
         String result = this.carService.save(car);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/findAll")
     public ResponseEntity<List<Car>> findAll() {
         var result = carService.findAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<Car> findById(@PathVariable Integer id) {
         var result = carService.findById(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     //@PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody @Valid Car carUpdate) {
         carService.update(id, carUpdate);
         return new ResponseEntity<>("Car atualizado com sucesso.", HttpStatus.OK);
     }
 
     //@PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         carService.delete(id);
         return ResponseEntity.noContent().build(); // status 204
