@@ -15,6 +15,7 @@ public class ClientDataLoader {
         return args -> {
             Client c1 = new Client();
             Client c2 = new Client();
+            Client c3 = new Client();
             c1.setNome("Mariano rajoy");
             c1.setCidade("Foz do Iguaçu");
             c1.setCpf("12345678912");
@@ -37,8 +38,20 @@ public class ClientDataLoader {
             c2.setNumero(100);
             c2.setAdmin(true);
 
+            c3.setNome("Carlos Vendedor");
+            c3.setCidade("Curitiba");
+            c3.setCpf("55544433322");
+            c3.setEmail("vendedor@gmail.com");
+            c3.setSenha("123456");
+            c3.setEstado("Paraná");
+            c3.setTelefone("41999887766");
+            c3.setRua("Av. das Vendas");
+            c3.setNumero(200);
+            c3.setAdmin(false);
+
             clientService.save(c1);
             clientService.save(c2);
+            clientService.save(c3);
         };
     }
 }
