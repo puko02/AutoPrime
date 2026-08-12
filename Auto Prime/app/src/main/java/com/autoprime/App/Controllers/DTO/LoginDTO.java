@@ -1,12 +1,35 @@
 package com.autoprime.App.Controllers.DTO;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
 
-@Data
 public class LoginDTO {
     @NotBlank
     private String email;
+
     @NotBlank
     private String senha;
+
+    public LoginDTO() {
+    }
+
+    public LoginDTO(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }

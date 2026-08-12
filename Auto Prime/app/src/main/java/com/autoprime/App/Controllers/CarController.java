@@ -50,7 +50,7 @@ public class CarController {
 
     //@PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody @Valid Car carUpdate) {
+    public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody Car carUpdate) {
         carService.update(id, carUpdate);
         return new ResponseEntity<>("Car atualizado com sucesso.", HttpStatus.OK);
     }
