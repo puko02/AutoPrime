@@ -39,15 +39,15 @@ public class ClientDataLoader {
                 c2.setAdmin(true);
 
                 Client c3 = new Client();
-                c3.setNome("Vendedor AutoPrime");
-                c3.setCidade("São Paulo");
-                c3.setCpf("11122233344");
+                c3.setNome("Carlos Vendedor");
+                c3.setCidade("Curitiba");
+                c3.setCpf("55544433322");
                 c3.setEmail("vendedor@gmail.com");
                 c3.setSenha("123456");
-                c3.setEstado("São Paulo");
-                c3.setTelefone("11988887777");
-                c3.setRua("Avenida Paulista");
-                c3.setNumero(500);
+                c3.setEstado("Paraná");
+                c3.setTelefone("41999887766");
+                c3.setRua("Av. das Vendas");
+                c3.setNumero(200);
                 c3.setAdmin(false);
 
                 repository.save(c1);
