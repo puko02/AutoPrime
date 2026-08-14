@@ -28,7 +28,7 @@ public class AuthController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginDTO data) {
+    public ResponseEntity<?> login(@RequestBody LoginDTO data) {
         Optional<Client> clientOpt = repository.findByEmail(data.getEmail());
 
         if (clientOpt.isEmpty()) {
