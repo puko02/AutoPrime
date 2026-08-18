@@ -60,7 +60,7 @@ jobs:
       - name: 🧪 Execução de Testes Unitários e Automatizados
         working-directory: "./Auto Prime/app"
         env:
-          SPRING_DATASOURCE_URL: jdbc:mariadb://localhost:3306/auto_prime?allowPublicKeyRetrieval=true&useSSL=false
+          SPRING_DATASOURCE_URL: jdbc:mariadb://127.0.0.1:3307/auto_prime
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: fabio123
           JWT_SECRET: AUDI_KEY
