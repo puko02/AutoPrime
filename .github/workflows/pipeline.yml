@@ -1,0 +1,81 @@
+name: CI/CD Backend Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: 🏗 Compilação, Testes e Geração de Artefatos
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:10.4
+        env:
+          MYSQL_DATABASE: auto_prime
+          MYSQL_ROOT_PASSWORD: fabio123
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Configurar ambiente Java 17 (JDK)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: 🐳 Configurar o Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Instalação das Dependências (Maven)
+        working-directory: "./Auto Prime/app"
+        run: |
+          echo "Baixando e instalando todas as dependências do projeto..."
+          chmod +x mvnw
+          ./mvnw dependency:resolve
+
+      - name: Compilação da Aplicação
+        working-directory: "./Auto Prime/app"
+        run: |
+          echo "Compilando o código fonte da aplicação..."
+          ./mvnw compile
+
+      - name: Execução de Testes Unitários e Automatizados
+        working-directory: "./Auto Prime/app"
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mariadb://localhost:3306/auto_prime?allowPublicKeyRetrieval=true&useSSL=false
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: fabio123
+          JWT_SECRET: AUDI_KEY
+          JWT_EXPIRATION: 3600000
+        run: |
+          echo "Executando testes unitários, automatizados e validando conexão com banco..."
+          ./mvnw test
+
+      - name: Geração do Artefato Executável (.jar)
+        working-directory: "./Auto Prime/app"
+        run: |
+          echo "Gerando pacote JAR da aplicação..."
+          ./mvnw package -DskipTests
+
+      - name: Upload do Artefato da Aplicação (JAR)
+        uses: actions/upload-artifact@v4
+        with:
+          name: autoprime-backend-jar
+          path: "./Auto Prime/app/target/*.jar"
+          retention-days: 7
+
+      - name: Build e Validação da Imagem Docker
+        run: |
+          echo "Iniciando a construção e validação da imagem Docker..."
+          docker build -t autoprime-backend:latest "./Auto Prime/app"
