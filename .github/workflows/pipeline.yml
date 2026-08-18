@@ -21,14 +21,15 @@ jobs:
 
     # Banco de dados MariaDB para testes de integração com o banco
     services:
-      mariadb:
-        image: mariadb:10.4
-        env:
-          MYSQL_DATABASE: auto_prime
-          MYSQL_ROOT_PASSWORD: fabio123
-        ports:
-          - 3307:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+          mariadb:
+            image: mariadb:10.4
+            env:
+              MYSQL_DATABASE: auto_prime
+              MYSQL_ROOT_PASSWORD: fabio123
+            ports:
+              - 3306:3306
+            # Adicionamos o -pfabio123 no health-cmd para ele conseguir "pingar" o banco com sucesso
+            options: --health-cmd="mysqladmin ping -pfabio123" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
       - name: 📥 Checkout do Código
@@ -57,17 +58,18 @@ jobs:
           echo "Compilando o código fonte da aplicação..."
           ./mvnw compile
 
-      - name: 🧪 Execução de Testes Unitários e Automatizados
+      - name: Execução de Testes Unitários e Automatizados
         working-directory: "./Auto Prime/app"
         env:
-          SPRING_DATASOURCE_URL: jdbc:mariadb://localhost:3306/auto_prime?allowPublicKeyRetrieval=true&useSSL=false
-          SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: fabio123
-          JWT_SECRET: AUDI_KEY
-          JWT_EXPIRATION: 3600000
+              # Forçamos o IP 127.0.0.1 e a porta 3306 para evitar qualquer confusão de DNS do GitHub
+              SPRING_DATASOURCE_URL: jdbc:mariadb://127.0.0.1:3306/auto_prime?allowPublicKeyRetrieval=true&useSSL=false
+              SPRING_DATASOURCE_USERNAME: root
+              SPRING_DATASOURCE_PASSWORD: fabio123
+              JWT_SECRET: AUDI_KEY
+              JWT_EXPIRATION: 3600000
         run: |
-          echo "Executando testes unitários, automatizados e validando conexão com banco..."
-          ./mvnw test
+              echo "Executando testes unitários, automatizados e validando conexão com banco..."
+              ./mvnw test
 
       - name: 📦 Geração do Artefato Executável (.jar)
         working-directory: "./Auto Prime/app"
