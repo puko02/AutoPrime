@@ -122,7 +122,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/autoprime-backend
+          images: ghcr.io/fabio-augusto-lorencini19/autoprime-backend
           tags: |
             type=raw,value=latest
             type=sha,format=short
@@ -146,11 +146,13 @@ jobs:
           key: ${{ secrets.VM_SSH_KEY }}
           port: ${{ secrets.VM_PORT || 22 }}
           script: |
+            set -e
+
             echo "========================================="
             echo "🚀 Iniciando Deploy Automatizado na VM Alpine"
             echo "========================================="
 
-            IMAGE_NAME="ghcr.io/${{ github.repository_owner }}/autoprime-backend:latest"
+            IMAGE_NAME="ghcr.io/fabio-augusto-lorencini19/autoprime-backend:latest"
 
             # 1. Login no registro a partir da VM
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
