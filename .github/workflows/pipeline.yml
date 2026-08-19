@@ -118,11 +118,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Ajustado para minúsculas e adicionado o sufixo -api para burlar o erro de permissão do GHCR
       - name: 🏷️ Definir Tags e Rótulos da Imagem
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/fabio-augusto-lorencini19/autoprime-backend
+          images: ghcr.io/fabio-augusto-lorencini19/autoprime-backend-api
           tags: |
             type=raw,value=latest
             type=sha,format=short
@@ -152,7 +153,8 @@ jobs:
             echo "🚀 Iniciando Deploy Automatizado na VM Alpine"
             echo "========================================="
 
-            IMAGE_NAME="ghcr.io/fabio-augusto-lorencini19/autoprime-backend:latest"
+            # Letras estritamente minúsculas e com o sufixo novo
+            IMAGE_NAME="ghcr.io/fabio-augusto-lorencini19/autoprime-backend-api:latest"
 
             # 1. Login no registro a partir da VM
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
