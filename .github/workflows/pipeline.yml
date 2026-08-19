@@ -123,7 +123,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/fabio-augusto-lorencini19/autoprime-backend-api
+          images: ghcr.io/fabio-augusto-lorencini19/autoprime-backend
           tags: |
             type=raw,value=latest
             type=sha,format=short
@@ -154,7 +154,7 @@ jobs:
             echo "========================================="
 
             # Letras estritamente minúsculas e com o sufixo novo
-            IMAGE_NAME="ghcr.io/fabio-augusto-lorencini19/autoprime-backend-api:latest"
+            IMAGE_NAME="ghcr.io/fabio-augusto-lorencini19/autoprime-backend:latest"
 
             # 1. Login no registro a partir da VM
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
