@@ -23,6 +23,7 @@ import jakarta.validation.Valid;
 @SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api/car")
+@CrossOrigin("*")
 public class CarController {
 
     @Autowired
