@@ -13,9 +13,9 @@ import java.util.List;
 public class ClientService {
 
     @Autowired
-    private  ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
-    public  String save(Client client) {
+    public String save(Client client) {
         try {
             clientRepository.save(client);
             return "Client salvo com sucesso";
@@ -32,23 +32,16 @@ public class ClientService {
         }
     }
 
-    public  List<Client> findAll() {
-        List<Client> clients = clientRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        if (clients.isEmpty()) {
-            throw new GenericExceptions.General(
-                    "Não existem clients cadastrados."
-            );
-        } else {
-            return clients;
-        }
+    public List<Client> findAll() {
+        return clientRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
-    public  Client findById(Integer id) {
+    public Client findById(Integer id) {
         return clientRepository.findById(id)
                 .orElseThrow(() -> new GenericExceptions.NotFound("Client não encontrado."));
     }
 
-    public  Client update(Integer id, Client novoClient) {
+    public Client update(Integer id, Client novoClient) {
         Client update = findById(id);
 
         if (novoClient.getNome() != null) {
@@ -90,9 +83,8 @@ public class ClientService {
         return clientRepository.save(update);
     }
 
-    public  void delete(Integer id) {
+    public void delete(Integer id) {
         Client delete = findById(id);
         clientRepository.delete(delete);
     }
 }
-
