@@ -99,9 +99,9 @@ resource "google_compute_instance" "autoprime_bastion" {
   zone         = var.zone
   project      = var.project_id
 
-  # S1 — Forçar autenticação baseada em chaves com OS Login
+  # S1 — Chave SSH injetada nos metadados da instância (OS Login desativado para aceitar chave direta)
   metadata = {
-    enable-oslogin = "TRUE"
+    enable-oslogin = "FALSE"
     ssh-keys       = var.ssh_public_key != "" ? "${var.ssh_user}:${var.ssh_public_key}" : null
   }
 
@@ -167,9 +167,9 @@ resource "google_compute_instance" "autoprime_vm" {
   zone         = var.zone
   project      = var.project_id
 
-  # S1 — Forçar autenticação baseada em chaves com OS Login
+  # S1 — Chave SSH injetada nos metadados da instância (OS Login desativado para aceitar chave direta)
   metadata = {
-    enable-oslogin = "TRUE"
+    enable-oslogin = "FALSE"
     ssh-keys       = var.ssh_public_key != "" ? "${var.ssh_user}:${var.ssh_public_key}" : null
   }
 
@@ -337,7 +337,24 @@ resource "google_compute_firewall" "autoprime_allow_health_check" {
 
 # ---- S2: Saída Restrita na Rede (Egress Rules) ----
 
-# S2: Bloqueia todo o tráfego de saída por padrão
+# Permite comunicação interna de saída entre as sub-redes da VPC (Bastion -> App VM e vice-versa)
+resource "google_compute_firewall" "autoprime_allow_internal_egress" {
+  name    = "autoprime-allow-internal-egress"
+  network = google_compute_network.autoprime_vpc.id
+  project = var.project_id
+
+  description = "Permite trafego de saida interno entre as sub-redes da VPC (10.0.0.0/16)"
+
+  allow {
+    protocol = "all"
+  }
+
+  direction          = "EGRESS"
+  destination_ranges = ["10.0.0.0/16"]
+  priority           = 900
+}
+
+# S2: Bloqueia todo o tráfego de saída por padrão para a internet (prioridade baixa)
 resource "google_compute_firewall" "autoprime_deny_all_egress" {
   name    = "autoprime-deny-all-egress"
   network = google_compute_network.autoprime_vpc.id

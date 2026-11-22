@@ -29,6 +29,9 @@ resource "google_storage_bucket" "db_backup" {
   # Bloqueia acesso público ao bucket
   public_access_prevention = "enforced"
 
+  # Ativa controle de acesso uniforme no bucket (exigido por políticas do GCP)
+  uniform_bucket_level_access = true
+
   # S6 — Criptografia em repouso explícita com chave CMEK via Cloud KMS
   encryption {
     default_kms_key_name = google_kms_crypto_key.autoprime_storage_key.id

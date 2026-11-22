@@ -34,4 +34,5 @@ build/
 
 AutoPrime/.env
 .env
+/frontend/
 

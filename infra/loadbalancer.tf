@@ -12,7 +12,7 @@ resource "google_compute_global_address" "autoprime_lb_ip" {
 
 # Certificado SSL Gerenciado pelo Google para o domínio da aplicação (S3)
 resource "google_compute_managed_ssl_certificate" "autoprime_cert" {
-  name    = "autoprime-managed-cert"
+  name    = "autoprime-cert-${substr(md5(var.domain_name), 0, 8)}"
   project = var.project_id
 
   managed {
