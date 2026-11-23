@@ -1,0 +1,180 @@
+Plan: 0 to add, 0 to change, 47 to destroy.
+
+Changes to Outputs:
+  - application_url       = "https://autoprime.puko.dev.br" -> null
+  - backup_bucket_name    = "project-software-enginnering-autoprime-db-backup" -> null
+  - backup_bucket_url     = "gs://project-software-enginnering-autoprime-db-backup" -> null
+  - backup_job_name       = "autoprime-db-backup-job" -> null
+  - backup_schedule       = "0 5 * * *" -> null
+  - bastion_public_ip     = "35.202.108.190" -> null
+  - kms_keyring           = "autoprime-keyring" -> null
+  - load_balancer_ip      = "136.81.132.14" -> null
+  - nat_public_ip         = "34.132.221.84" -> null
+  - service_account_email = "autoprime-backup-sa@project-software-enginnering.iam.gserviceaccount.com" -> null
+  - ssh_app_command       = "ssh -i ~/.ssh/chave-grupo -J autoprime@35.202.108.190 autoprime@10.0.2.3" -> null
+  - ssh_bastion_command   = "ssh -i ~/.ssh/chave-grupo autoprime@35.202.108.190" -> null
+  - vm_private_ip         = "10.0.2.3" -> null
+  - vm_public_ip          = "35.202.108.190" -> null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+google_project_service.run_api: Destroying... [id=project-software-enginnering/run.googleapis.com]
+google_storage_bucket_iam_member.backup_writer: Destroying... [id=b/project-software-enginnering-autoprime-db-backup/roles/storage.objectCreator/serviceAccount:autoprime-backup-sa@project-software-enginnering.iam.gserviceaccount.com]
+google_compute_global_forwarding_rule.autoprime_http_forwarding_rule: Destroying... [id=projects/project-software-enginnering/global/forwardingRules/autoprime-http-forwarding-rule]
+google_compute_firewall.autoprime_allow_internal_ssh: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-internal-ssh]
+google_compute_firewall.autoprime_allow_egress_https: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-egress-https]
+google_cloud_scheduler_job.db_backup_schedule: Destroying... [id=projects/project-software-enginnering/locations/us-central1/jobs/autoprime-db-backup-daily]
+google_compute_firewall.autoprime_allow_internal_egress: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-internal-egress]
+google_compute_firewall.autoprime_allow_web: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-web]
+google_compute_global_forwarding_rule.autoprime_https_forwarding_rule: Destroying... [id=projects/project-software-enginnering/global/forwardingRules/autoprime-https-forwarding-rule]
+google_project_service.run_api: Destruction complete after 0s
+google_compute_instance.autoprime_bastion: Destroying... [id=projects/project-software-enginnering/zones/us-central1-a/instances/bastion-ubuntu]
+google_compute_firewall.autoprime_deny_all_egress: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-deny-all-egress]
+google_cloud_scheduler_job.db_backup_schedule: Destruction complete after 1s
+google_compute_firewall.autoprime_allow_egress_dns: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-egress-dns]
+google_storage_bucket_iam_member.backup_writer: Destruction complete after 6s
+google_compute_firewall.autoprime_allow_ssh_bastion: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-ssh-bastion]
+google_compute_global_forwarding_rule.autoprime_http_forwarding_rule: Still destroying... [id=projects/project-software-enginnering/g...ngRules/autoprime-http-forwarding-rule, 00m10s elapsed]
+google_compute_firewall.autoprime_allow_internal_ssh: Still destroying... [id=projects/project-software-enginnering/g...firewalls/autoprime-allow-internal-ssh, 00m10s elapsed]
+google_compute_firewall.autoprime_allow_egress_https: Still destroying... [id=projects/project-software-enginnering/g...firewalls/autoprime-allow-egress-https, 00m10s elapsed]
+google_compute_global_forwarding_rule.autoprime_https_forwarding_rule: Still destroying... [id=projects/project-software-enginnering/g...gRules/autoprime-https-forwarding-rule, 00m10s elapsed]
+google_compute_firewall.autoprime_allow_internal_egress: Still destroying... [id=projects/project-software-enginnering/g...ewalls/autoprime-allow-internal-egress, 00m10s elapsed]
+google_compute_firewall.autoprime_allow_web: Still destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-web, 00m10s elapsed]
+google_compute_instance.autoprime_bastion: Still destroying... [id=projects/project-software-enginnering/z...us-central1-a/instances/bastion-ubuntu, 00m10s elapsed]
+google_compute_firewall.autoprime_deny_all_egress: Still destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-deny-all-egress, 00m10s elapsed]
+google_compute_firewall.autoprime_deny_all_egress: Destruction complete after 11s
+google_project_iam_member.backup_sa_run: Destroying... [id=project-software-enginnering/roles/run.invoker/serviceAccount:autoprime-backup-sa@project-software-enginnering.iam.gserviceaccount.com]
+google_compute_firewall.autoprime_allow_egress_dns: Still destroying... [id=projects/project-software-enginnering/g...l/firewalls/autoprime-allow-egress-dns, 00m10s elapsed]
+google_compute_firewall.autoprime_allow_web: Destruction complete after 11s
+google_compute_firewall.autoprime_allow_health_check: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-health-check]
+google_compute_firewall.autoprime_allow_internal_ssh: Destruction complete after 11s
+google_compute_firewall.autoprime_allow_egress_http: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-egress-http]
+google_compute_firewall.autoprime_allow_egress_https: Destruction complete after 11s
+google_compute_firewall.autoprime_allow_egress_ntp: Destroying... [id=projects/project-software-enginnering/global/firewalls/autoprime-allow-egress-ntp]
+google_compute_firewall.autoprime_allow_internal_egress: Destruction complete after 11s
+google_cloud_run_v2_job.db_backup_job: Destroying... [id=projects/project-software-enginnering/locations/us-central1/jobs/autoprime-db-backup-job]
+google_compute_firewall.autoprime_allow_egress_dns: Destruction complete after 12s
+google_project_service.scheduler_api: Destroying... [id=project-software-enginnering/cloudscheduler.googleapis.com]
+google_project_service.scheduler_api: Destruction complete after 0s
+google_cloud_run_v2_job.db_backup_job: Destruction complete after 2s
+google_vpc_access_connector.autoprime_connector: Destroying... [id=projects/project-software-enginnering/locations/us-central1/connectors/autoprime-conn]
+google_storage_bucket.db_backup: Destroying... [id=project-software-enginnering-autoprime-db-backup]
+google_storage_bucket.db_backup: Destruction complete after 1s
+google_kms_crypto_key_iam_binding.storage_cmek: Destroying... [id=projects/project-software-enginnering/locations/us-central1/keyRings/autoprime-keyring/cryptoKeys/autoprime-storage-key/roles/cloudkms.cryptoKeyEncrypterDecrypter]
+google_compute_firewall.autoprime_allow_ssh_bastion: Still destroying... [id=projects/project-software-enginnering/g.../firewalls/autoprime-allow-ssh-bastion, 00m10s elapsed]
+google_compute_firewall.autoprime_allow_ssh_bastion: Destruction complete after 11s
+google_compute_global_forwarding_rule.autoprime_http_forwarding_rule: Still destroying... [id=projects/project-software-enginnering/g...ngRules/autoprime-http-forwarding-rule, 00m20s elapsed]
+google_compute_global_forwarding_rule.autoprime_https_forwarding_rule: Still destroying... [id=projects/project-software-enginnering/g...gRules/autoprime-https-forwarding-rule, 00m20s elapsed]
+google_compute_instance.autoprime_bastion: Still destroying... [id=projects/project-software-enginnering/z...us-central1-a/instances/bastion-ubuntu, 00m20s elapsed]
+google_project_iam_member.backup_sa_run: Destruction complete after 10s
+google_service_account.backup_sa: Destroying... [id=projects/project-software-enginnering/serviceAccounts/autoprime-backup-sa@project-software-enginnering.iam.gserviceaccount.com]
+google_compute_firewall.autoprime_allow_health_check: Still destroying... [id=projects/project-software-enginnering/g...firewalls/autoprime-allow-health-check, 00m10s elapsed]
+google_compute_firewall.autoprime_allow_egress_http: Still destroying... [id=projects/project-software-enginnering/g.../firewalls/autoprime-allow-egress-http, 00m10s elapsed]
+google_compute_firewall.autoprime_allow_egress_ntp: Still destroying... [id=projects/project-software-enginnering/g...l/firewalls/autoprime-allow-egress-ntp, 00m10s elapsed]
+google_service_account.backup_sa: Destruction complete after 1s
+google_compute_global_forwarding_rule.autoprime_https_forwarding_rule: Destruction complete after 22s
+google_compute_target_https_proxy.autoprime_https_proxy: Destroying... [id=projects/project-software-enginnering/global/targetHttpsProxies/autoprime-https-proxy]
+google_compute_global_forwarding_rule.autoprime_http_forwarding_rule: Destruction complete after 22s
+google_compute_target_http_proxy.autoprime_http_proxy: Destroying... [id=projects/project-software-enginnering/global/targetHttpProxies/autoprime-http-proxy]
+google_compute_global_address.autoprime_lb_ip: Destroying... [id=projects/project-software-enginnering/global/addresses/autoprime-lb-ip]
+google_compute_firewall.autoprime_allow_health_check: Destruction complete after 12s
+google_kms_crypto_key_iam_binding.storage_cmek: Destruction complete after 9s
+google_kms_crypto_key.autoprime_storage_key: Destroying... [id=projects/project-software-enginnering/locations/us-central1/keyRings/autoprime-keyring/cryptoKeys/autoprime-storage-key]
+google_compute_firewall.autoprime_allow_egress_ntp: Destruction complete after 12s
+google_compute_firewall.autoprime_allow_egress_http: Destruction complete after 12s
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 00m10s elapsed]
+google_kms_crypto_key.autoprime_storage_key: Destruction complete after 1s
+google_compute_instance.autoprime_bastion: Still destroying... [id=projects/project-software-enginnering/z...us-central1-a/instances/bastion-ubuntu, 00m30s elapsed]
+google_compute_target_https_proxy.autoprime_https_proxy: Still destroying... [id=projects/project-software-enginnering/g...rgetHttpsProxies/autoprime-https-proxy, 00m10s elapsed]
+google_compute_target_http_proxy.autoprime_http_proxy: Still destroying... [id=projects/project-software-enginnering/g...targetHttpProxies/autoprime-http-proxy, 00m10s elapsed]
+google_compute_global_address.autoprime_lb_ip: Still destroying... [id=projects/project-software-enginnering/global/addresses/autoprime-lb-ip, 00m10s elapsed]
+google_compute_target_https_proxy.autoprime_https_proxy: Destruction complete after 11s
+google_compute_managed_ssl_certificate.autoprime_cert: Destroying... [id=projects/project-software-enginnering/global/sslCertificates/autoprime-cert-4e79186b]
+google_compute_url_map.autoprime_https_map: Destroying... [id=projects/project-software-enginnering/global/urlMaps/autoprime-https-url-map]
+google_compute_global_address.autoprime_lb_ip: Destruction complete after 11s
+google_compute_target_http_proxy.autoprime_http_proxy: Destruction complete after 11s
+google_compute_url_map.autoprime_http_redirect: Destroying... [id=projects/project-software-enginnering/global/urlMaps/autoprime-http-redirect-map]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 00m20s elapsed]
+google_compute_instance.autoprime_bastion: Still destroying... [id=projects/project-software-enginnering/z...us-central1-a/instances/bastion-ubuntu, 00m40s elapsed]
+google_compute_managed_ssl_certificate.autoprime_cert: Still destroying... [id=projects/project-software-enginnering/g...slCertificates/autoprime-cert-4e79186b, 00m10s elapsed]
+google_compute_url_map.autoprime_https_map: Still destroying... [id=projects/project-software-enginnering/global/urlMaps/autoprime-https-url-map, 00m10s elapsed]
+google_compute_url_map.autoprime_http_redirect: Still destroying... [id=projects/project-software-enginnering/global/urlMaps/autoprime-http-redirect-map, 00m10s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 00m30s elapsed]
+google_compute_managed_ssl_certificate.autoprime_cert: Destruction complete after 12s
+google_compute_url_map.autoprime_http_redirect: Destruction complete after 12s
+google_compute_url_map.autoprime_https_map: Destruction complete after 12s
+google_compute_backend_service.autoprime_backend: Destroying... [id=projects/project-software-enginnering/global/backendServices/autoprime-backend-service]
+google_compute_instance.autoprime_bastion: Still destroying... [id=projects/project-software-enginnering/z...us-central1-a/instances/bastion-ubuntu, 00m50s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 00m40s elapsed]
+google_compute_backend_service.autoprime_backend: Still destroying... [id=projects/project-software-enginnering/g...kendServices/autoprime-backend-service, 00m10s elapsed]
+google_compute_instance.autoprime_bastion: Destruction complete after 57s
+google_compute_subnetwork.autoprime_subnet_public: Destroying... [id=projects/project-software-enginnering/regions/us-central1/subnetworks/autoprime-subnet-public]
+google_compute_address.autoprime_bastion_ip: Destroying... [id=projects/project-software-enginnering/regions/us-central1/addresses/autoprime-bastion-ip]
+google_compute_address.autoprime_bastion_ip: Destruction complete after 2s
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 00m50s elapsed]
+google_compute_backend_service.autoprime_backend: Still destroying... [id=projects/project-software-enginnering/g...kendServices/autoprime-backend-service, 00m20s elapsed]
+google_compute_subnetwork.autoprime_subnet_public: Still destroying... [id=projects/project-software-enginnering/r...l1/subnetworks/autoprime-subnet-public, 00m10s elapsed]
+google_compute_subnetwork.autoprime_subnet_public: Destruction complete after 14s
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 01m00s elapsed]
+google_compute_backend_service.autoprime_backend: Still destroying... [id=projects/project-software-enginnering/g...kendServices/autoprime-backend-service, 00m30s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 01m10s elapsed]
+google_compute_backend_service.autoprime_backend: Still destroying... [id=projects/project-software-enginnering/g...kendServices/autoprime-backend-service, 00m40s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 01m20s elapsed]
+google_compute_backend_service.autoprime_backend: Still destroying... [id=projects/project-software-enginnering/g...kendServices/autoprime-backend-service, 00m50s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 01m30s elapsed]
+google_compute_backend_service.autoprime_backend: Still destroying... [id=projects/project-software-enginnering/g...kendServices/autoprime-backend-service, 01m00s elapsed]
+google_compute_backend_service.autoprime_backend: Destruction complete after 1m3s
+google_compute_health_check.autoprime_hc: Destroying... [id=projects/project-software-enginnering/global/healthChecks/autoprime-health-check]
+google_compute_instance_group.autoprime_ig: Destroying... [id=projects/project-software-enginnering/zones/us-central1-a/instanceGroups/autoprime-instance-group]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 01m40s elapsed]
+google_compute_instance_group.autoprime_ig: Still destroying... [id=projects/project-software-enginnering/z...nstanceGroups/autoprime-instance-group, 00m10s elapsed]
+google_compute_health_check.autoprime_hc: Still destroying... [id=projects/project-software-enginnering/global/healthChecks/autoprime-health-check, 00m10s elapsed]
+google_compute_health_check.autoprime_hc: Destruction complete after 11s
+google_compute_instance_group.autoprime_ig: Destruction complete after 13s
+google_compute_instance.autoprime_vm: Destroying... [id=projects/project-software-enginnering/zones/us-central1-a/instances/autoprime-app-vm]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 01m50s elapsed]
+google_compute_instance.autoprime_vm: Still destroying... [id=projects/project-software-enginnering/z...-central1-a/instances/autoprime-app-vm, 00m10s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 02m00s elapsed]
+google_compute_instance.autoprime_vm: Still destroying... [id=projects/project-software-enginnering/z...-central1-a/instances/autoprime-app-vm, 00m20s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 02m10s elapsed]
+google_compute_instance.autoprime_vm: Still destroying... [id=projects/project-software-enginnering/z...-central1-a/instances/autoprime-app-vm, 00m30s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 02m20s elapsed]
+google_compute_instance.autoprime_vm: Still destroying... [id=projects/project-software-enginnering/z...-central1-a/instances/autoprime-app-vm, 00m40s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 02m30s elapsed]
+google_compute_instance.autoprime_vm: Still destroying... [id=projects/project-software-enginnering/z...-central1-a/instances/autoprime-app-vm, 00m50s elapsed]
+google_vpc_access_connector.autoprime_connector: Still destroying... [id=projects/project-software-enginnering/l.../us-central1/connectors/autoprime-conn, 02m40s elapsed]
+google_vpc_access_connector.autoprime_connector: Destruction complete after 2m45s
+google_project_service.vpcaccess_api: Destroying... [id=project-software-enginnering/vpcaccess.googleapis.com]
+google_project_service.vpcaccess_api: Destruction complete after 0s
+google_compute_instance.autoprime_vm: Still destroying... [id=projects/project-software-enginnering/z...-central1-a/instances/autoprime-app-vm, 01m00s elapsed]
+google_compute_instance.autoprime_vm: Destruction complete after 1m8s
+google_kms_crypto_key_iam_binding.compute_engine_cmek: Destroying... [id=projects/project-software-enginnering/locations/us-central1/keyRings/autoprime-keyring/cryptoKeys/autoprime-disk-key/roles/cloudkms.cryptoKeyEncrypterDecrypter]
+google_project_service.compute_api: Destroying... [id=project-software-enginnering/compute.googleapis.com]
+google_compute_router_nat.autoprime_nat: Destroying... [id=project-software-enginnering/us-central1/autoprime-nat-router/autoprime-cloud-nat]
+google_project_service.compute_api: Destruction complete after 0s
+google_kms_crypto_key_iam_binding.compute_engine_cmek: Destruction complete after 7s
+google_kms_crypto_key.autoprime_disk_key: Destroying... [id=projects/project-software-enginnering/locations/us-central1/keyRings/autoprime-keyring/cryptoKeys/autoprime-disk-key]
+google_kms_crypto_key.autoprime_disk_key: Destruction complete after 3s
+google_kms_key_ring.autoprime_keyring: Destroying... [id=projects/project-software-enginnering/locations/us-central1/keyRings/autoprime-keyring]
+google_kms_key_ring.autoprime_keyring: Destruction complete after 0s
+google_project_service.kms_api: Destroying... [id=project-software-enginnering/cloudkms.googleapis.com]
+google_project_service.kms_api: Destruction complete after 0s
+google_compute_router_nat.autoprime_nat: Still destroying... [id=project-software-enginnering/us-central...toprime-nat-router/autoprime-cloud-nat, 00m10s elapsed]
+google_compute_router_nat.autoprime_nat: Destruction complete after 16s
+google_compute_router.autoprime_router: Destroying... [id=projects/project-software-enginnering/regions/us-central1/routers/autoprime-nat-router]
+google_compute_subnetwork.autoprime_subnet_private: Destroying... [id=projects/project-software-enginnering/regions/us-central1/subnetworks/autoprime-subnet-private]
+google_compute_address.autoprime_nat_ip: Destroying... [id=projects/project-software-enginnering/regions/us-central1/addresses/autoprime-nat-ip]
+google_compute_address.autoprime_nat_ip: Destruction complete after 2s
+google_compute_router.autoprime_router: Destruction complete after 2s
+google_compute_subnetwork.autoprime_subnet_private: Still destroying... [id=projects/project-software-enginnering/r...1/subnetworks/autoprime-subnet-private, 00m10s elapsed]
+google_compute_subnetwork.autoprime_subnet_private: Destruction complete after 13s
+google_compute_network.autoprime_vpc: Destroying... [id=projects/project-software-enginnering/global/networks/autoprime-vpc]
+google_compute_network.autoprime_vpc: Still destroying... [id=projects/project-software-enginnering/global/networks/autoprime-vpc, 00m10s elapsed]
+google_compute_network.autoprime_vpc: Still destroying... [id=projects/project-software-enginnering/global/networks/autoprime-vpc, 00m20s elapsed]
+google_compute_network.autoprime_vpc: Destruction complete after 22s
+
+Destroy complete! Resources: 47 destroyed.

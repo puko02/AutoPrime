@@ -151,18 +151,19 @@ ssh -i ~/.ssh/chave-grupo -J autoprime@IP_PUBLICO_BASTION autoprime@IP_PRIVADO_A
 docker --version
 ```
 
-**Passo 3 — Baixar o código (Backend e Frontend):**
+**Passo 3 — Baixar o código do backend e, dentro dele, o do frontend:**
 
 ```bash
-# Clonar repositório do Backend e do Frontend lado a lado
 git clone https://github.com/puko02/AutoPrime.git
-git clone https://github.com/Fabio-Augusto-Lorencini19/AutoPrimeF.git
+cd AutoPrime
+git clone https://github.com/Fabio-Augusto-Lorencini19/AutoPrimeF.git frontend
 ```
 
-**Passo 4 — Criar o arquivo `.env` com os segredos** (eles não ficam no Git). Os comandos abaixo pedem as senhas sem mostrar na tela:
+O frontend precisa ficar na pasta `AutoPrime/frontend`, que é onde o `docker-compose.yml` procura o código dele.
+
+**Passo 4 — Criar o arquivo `.env` com os segredos** (eles não ficam no Git). Ainda dentro da pasta `AutoPrime`, os comandos abaixo pedem as senhas sem mostrar na tela:
 
 ```bash
-cd AutoPrime
 read -s -p "Senha do banco: " DB_PASSWORD; echo
 read -s -p "Segredo do JWT: " JWT_SECRET; echo
 printf "DB_PASSWORD=%s\nJWT_SECRET=%s\nJWT_EXPIRATION=3600000\n" "$DB_PASSWORD" "$JWT_SECRET" > .env

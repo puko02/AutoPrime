@@ -70,7 +70,7 @@ variable "domain_name" {
 variable "db_host" {
   description = "Host do banco de dados MariaDB (IP interno ou hostname)"
   type        = string
-  default     = "10.0.1.5"
+  default     = "10.0.2.0/24"
 }
 
 variable "db_name" {

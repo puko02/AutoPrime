@@ -61,15 +61,51 @@ Os recursos computacionais são distribuídos entre duas zonas da mesma região 
 
 ## 3. Estimativa de Custos: Arquitetura Implantada vs Proposta de HA
 
-| Componente | Cenário A (Implantado na Entrega 2) | Proposta de Alta Disponibilidade (Operação Contínua) | Variação (%) |
-|---|:---:|:---:|:---:|
-| **Computação (VMs)** | 1x `e2-medium` (~ \$25/mês) | 2x `e2-medium` no MIG (~ \$50/mês) | + 100% |
-| **Banco de Dados** | Incluso na VM única (\$0 adicional) | Cloud SQL MySQL HA (db-custom-2-8, Regional) (~ \$140/mês) | + 100% (Novo) |
-| **Load Balancer** | Global Forwarding Rules (~ \$18/mês) | Global Application Load Balancer (~ \$25/mês) | + 38% |
-| **Armazenamento e Backup** | GCS Standard 2 dias (~ \$0,05/mês) | Cloud SQL Backup + GCS Regional (~ \$15/mês) | + 300% |
-| **Rede e Cloud NAT** | 1x Cloud NAT (~ \$32/mês) | 1x Cloud NAT Regional + tráfego interzonal (~ \$45/mês) | + 40% |
-| **Total Mensal Estimado** | **~ \$75,00 / mês** | **~ \$275,00 / mês** | **+ 266%** |
+As estimativas abaixo foram extraídas dos CSVs exportados da Google Cloud Pricing Calculator em **22/11/2026**. Os valores estão em dólares americanos (USD).
+
+### 3.1 Proposta de HA — operação contínua (730 horas/mês)
+
+| Componente | `us-central1` (Iowa) | `southamerica-east1` (São Paulo) |
+|---|---:|---:|
+| Compute Engine (instâncias de aplicação/conectividade e Bastion) | US$ 68,35 | US$ 101,23 |
+| Cloud SQL for MySQL (vCPU, RAM, armazenamento e backups) | US$ 102,10 | US$ 153,15 |
+| Cloud Load Balancing | US$ 18,25 | US$ 18,25 |
+| Cloud NAT (uptime, processamento e IP) | US$ 5,92 | US$ 5,92 |
+| Cloud KMS | US$ 0,18 | US$ 0,18 |
+| Cloud Storage | US$ 0,00 | US$ 0,04 |
+| IPs e demais itens sem cobrança na estimativa | US$ 0,00 | US$ 0,00 |
+| **Total mensal estimado** | **US$ 194,92** | **US$ 249,09** |
+
+A estimativa de `us-central1` contém duas instâncias de aplicação (2.920 horas de vCPU/RAM somadas), duas instâncias de conector VPC, uma instância Bastion considerada por 182,5 horas e Cloud SQL regional. A alternativa de São Paulo também considera duas instâncias de aplicação, duas instâncias na segunda região, Bastion por 182,5 horas e Cloud SQL regional.
+
+### 3.2 Estimativa de uso limitado — arquivo `calculadora cloudsql.csv`
+
+O terceiro CSV não representa operação contínua de um mês: as VMs foram estimadas por **5 horas** e o Cloud SQL por **120 horas**. O total exportado é **US$ 51,11** para esse período estimado. Portanto, esse valor não deve ser comparado diretamente aos totais mensais de operação contínua nem apresentado como custo mensal.
+
+| Grupo de recursos | Total no período estimado |
+|---|---:|
+| Compute Engine (instâncias de aplicação, duas instâncias auxiliares e Bastion) | US$ 11,06 |
+| Cloud SQL for MySQL (120 horas, incluindo armazenamento e backups) | US$ 16,78 |
+| Cloud Load Balancing | US$ 18,25 |
+| Cloud NAT | US$ 4,90 |
+| Cloud KMS | US$ 0,12 |
+| Cloud Storage, IPs e demais itens | US$ 0,00 |
+| **Total do período** | **US$ 51,11** |
+
+### 3.3 Comparação e interpretação
+
+Para a proposta de HA em operação contínua, a calculadora indica **US$ 194,92/mês em `us-central1`** e **US$ 249,09/mês em `southamerica-east1`**. A alternativa em São Paulo custa aproximadamente **27,8% a mais** que a estimativa em Iowa:
+
+\[
+\frac{249,09 - 194,92}{194,92}\times 100 \approx 27,8\%
+\]
+
+O principal componente de custo nos dois cenários é o **Cloud SQL regional**: aproximadamente US$ 102,10/mês em Iowa e US$ 153,15/mês em São Paulo. O Compute Engine é o segundo maior grupo de despesas.
+
+**Limitação da comparação com a arquitetura implantada:** os CSVs fornecidos não apresentam uma estimativa equivalente, em operação contínua de 730 horas, para o cenário A implantado na Entrega 2. O arquivo `calculadora cloudsql.csv` tem durações parciais (5 e 120 horas), por isso não é tecnicamente correto usá-lo como base mensal para calcular a variação percentual da proposta de HA. Para cumprir a comparação exigida na seção 5.2 do enunciado, é necessário exportar também a calculadora do cenário A com as mesmas premissas de operação mensal, ou informar explicitamente que a comparação percentual não foi calculada por falta dessa base equivalente.
 
 ### O custo se justifica para o perfil de uso da concessionária?
-**Resposta Fundamentada:** **NÃO se justifica no estágio atual do negócio.**  
-*Justificativa:* O AutoPrime atende a uma concessionária de veículos de luxo com operação comercial em horário comercial e volume moderado de acessos simultâneos (catálogo público e painel interno de vendedores). Um downtime eventual fora do horário comercial não acarreta perdas financeiras catastróficas que compensem um aumento de **mais de 260% no custo fixo mensal de nuvem** (de ~\$75 para ~\$275 mensais). A arquitetura conteinerizada atual com política de backup bem estruturada atende aos objetivos de negócio com excelente eficiência de capital.
+
+**Resposta fundamentada:** **não se justifica no estágio atual do negócio**, considerando o perfil descrito no projeto. A arquitetura de HA oferece maior resiliência contra falhas de instância e de zona, mas eleva o custo fixo mensal para aproximadamente US$ 194,92 em Iowa ou US$ 249,09 em São Paulo. Para uma concessionária com operação comercial em horário comercial e volume moderado de acessos simultâneos, o benefício de disponibilidade precisa ser ponderado frente a esse custo recorrente. A decisão pode ser revista caso a indisponibilidade passe a representar perda financeira relevante.
+
+> **Observação:** estimativas da Google Cloud Pricing Calculator são aproximadas, em USD, e podem variar conforme uso real, tráfego, configuração, descontos, impostos e alterações de preço. Os totais acima reproduzem os valores dos CSVs enviados; não representam uma cotação vinculante.
