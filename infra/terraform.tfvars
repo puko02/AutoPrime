@@ -1,0 +1,28 @@
+# ==============================================================================
+# Exemplo de valores de variáveis (NÃO incluir dados sensíveis reais aqui)
+# Copie este arquivo para terraform.tfvars e preencha os valores antes de aplicar.
+# ==============================================================================
+
+project_id            = "project-software-enginnering"
+region                = "us-central1"
+zone                  = "us-central1-a"
+machine_type          = "e2-medium"
+vm_image              = "ubuntu-os-cloud/ubuntu-2204-lts"
+
+# S1/R7: Substitua pelo IP público /32 da sua conexão de internet (ex: "187.54.12.33/32")
+# NUNCA utilize "0.0.0.0/0" sob pena de penalidade severa na nota!
+allowed_ssh_cidr      = ["138.36.35.102/32"]
+
+ssh_user              = "autoprime"
+ssh_public_key        = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILdCSYOCYssC2O0YruJhkEf91tLiA1wUOVp/5kxf6yTa burra@MSI"
+
+# S3: Domínio apontando para o IP do Load Balancer
+domain_name           = "autoprime.puko.dev.br"
+
+# Dados da aplicação e backup
+db_host               = "10.0.2.0/24"
+db_name               = "auto_prime"
+db_user               = "root"
+# db_password NÃO deve ser colocado neste arquivo! Passe via variável de ambiente:
+# export TF_VAR_db_password="sua_senha_segura"
+backup_retention_days = 2

@@ -29,12 +29,12 @@ output "vm_private_ip" {
 # Comandos de apoio para acesso administrativo SSH (D3)
 output "ssh_bastion_command" {
   description = "Comando para conectar diretamente no Bastion via SSH (D3)"
-  value       = "ssh -i ~/.ssh/chave-grupo ${var.ssh_user}@${google_compute_address.autoprime_bastion_ip.address}"
+  value       = "ssh -i ~/.ssh/chave-autoprime ${var.ssh_user}@${google_compute_address.autoprime_bastion_ip.address}"
 }
 
 output "ssh_app_command" {
   description = "Comando para conectar na VM privada passando pelo Bastion (Jump Host - D3)"
-  value       = "ssh -i ~/.ssh/chave-grupo -J ${var.ssh_user}@${google_compute_address.autoprime_bastion_ip.address} ${var.ssh_user}@${google_compute_instance.autoprime_vm.network_interface[0].network_ip}"
+  value       = "ssh -i ~/.ssh/chave-autoprime -J ${var.ssh_user}@${google_compute_address.autoprime_bastion_ip.address} ${var.ssh_user}@${google_compute_instance.autoprime_vm.network_interface[0].network_ip}"
 }
 
 # S3 & R11 — URL e IP do Load Balancer HTTPS
