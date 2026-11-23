@@ -37,7 +37,7 @@ services:
 
   frontend:
     build:
-      context: "../Dedsec"
+      context: "./frontend"
       dockerfile: Dockerfile
     container_name: autoprime-frontend
     restart: always

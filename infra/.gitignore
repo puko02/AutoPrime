@@ -1,0 +1,23 @@
+# ==============================================================================
+# .gitignore — Infraestrutura Terraform (Regra 7.2 do Edital)
+# ==============================================================================
+
+# Terraform State e Diretórios Locais
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+crash.log
+crash.*.log
+
+# Variáveis contendo segredos (o exemplo é versionado)
+*.tfvars
+*.auto.tfvars
+!terraform.tfvars.example
+
+# Chaves privadas SSH
+*.pem
+*.key
+chave-grupo
+id_rsa
+id_ed25519
