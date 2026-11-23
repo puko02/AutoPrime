@@ -13,9 +13,9 @@ import java.util.List;
 public class CarService {
 
     @Autowired
-    private  CarRepository carRepository;
+    private CarRepository carRepository;
 
-    public  String save(Car car) {
+    public String save(Car car) {
         try {
             carRepository.save(car);
             return "Car salvo com sucesso";
@@ -32,23 +32,16 @@ public class CarService {
         }
     }
 
-    public  List<Car> findAll() {
-        List<Car> cars = carRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        if (cars.isEmpty()) {
-            throw new GenericExceptions.General(
-                    "Não existem cars cadastrados."
-            );
-        } else {
-            return cars;
-        }
+    public List<Car> findAll() {
+        return carRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
-    public  Car findById(Integer id) {
+    public Car findById(Integer id) {
         return carRepository.findById(id)
                 .orElseThrow(() -> new GenericExceptions.NotFound("Car não encontrado."));
     }
 
-    public  Car update(Integer id, Car novoCar) {
+    public Car update(Integer id, Car novoCar) {
         Car update = findById(id);
 
         if (novoCar.getImagem() != null) {
@@ -86,9 +79,8 @@ public class CarService {
         return carRepository.save(update);
     }
 
-    public  void delete(Integer id) {
+    public void delete(Integer id) {
         Car delete = findById(id);
         carRepository.delete(delete);
     }
 }
-
